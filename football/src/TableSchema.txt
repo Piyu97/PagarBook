@@ -1,0 +1,67 @@
+create table registration(id int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY ,name varchar(30),email text,password text,phone int(10),salt text)AUTO_INCREMENT=1;
+
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| id       | int         | NO   | PRI | NULL    | auto_increment |
+| name     | varchar(30) | YES  |     | NULL    |                |
+| email    | text        | YES  |     | NULL    |                |
+| password | text        | YES  |     | NULL    |                |
+| phone    | int         | YES  |     | NULL    |                |
+| salt     | text        | YES  |     | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+
+create table competition (id int(10) not null AUTO_INCREMENT PRIMARY KEY,name text,host text,image_url text,start_date date,end_date date)AUTO_INCREMENT=1;
+
++------------+------+------+-----+---------+----------------+
+| Field      | Type | Null | Key | Default | Extra          |
++------------+------+------+-----+---------+----------------+
+| id         | int  | NO   | PRI | NULL    | auto_increment |
+| name       | text | YES  |     | NULL    |                |
+| host       | text | YES  |     | NULL    |                |
+| image_url  | text | YES  |     | NULL    |                |
+| start_date | date | YES  |     | NULL    |                |
+| end_date   | date | YES  |     | NULL    |                |
++------------+------+------+-----+---------+----------------+
+
++----+---------------------+---------+-------------------------------------------------------------------------------+------------+------------+
+| id | name                | host    | image_url                                                                     | start_date | end_date   |
++----+---------------------+---------+-------------------------------------------------------------------------------+------------+------------+
+|  1 | Playoffs 1/2        | Austria | https://upload.wikimedia.org/wikipedia/commons/4/41/Flag_of_Austria.svg       | 2018-05-31 | 2018-06-03 |
+|  2 | TIER_TWO            | Belgium | https://upload.wikimedia.org/wikipedia/commons/6/65/Flag_of_Belgium.svg       | 2019-07-26 | 2020-05-24 |
+|  3 | Prva Liga           | Croatia | https://upload.wikimedia.org/wikipedia/commons/1/1b/Flag_of_Croatia.svg       | 2019-07-20 | 2020-05-17 |
+|  4 | TIER_THREE          | Denmark | https://upload.wikimedia.org/wikipedia/commons/9/9c/Flag_of_Denmark.svg       | 2019-07-12 | 2020-05-30 |
+|  5 | FA Community Shield | England | https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg | 2019-08-04 | 2019-08-04 |
+
+
+create table team(id int(10) not null AUTO_INCREMENT PRIMARY KEY,comp_id int(10),address text,phone int(15),website text,email text,founded int(4),photo_url text,name text,FOREIGN KEY(comp_id)references competition(id))AUTO_INCREMENT=1;
+
++-----------+------+------+-----+---------+----------------+
+| Field     | Type | Null | Key | Default | Extra          |
++-----------+------+------+-----+---------+----------------+
+| id        | int  | NO   | PRI | NULL    | auto_increment |
+| comp_id   | int  | YES  | MUL | NULL    |                |
+| address   | text | YES  |     | NULL    |                |
+| phone     | int  | YES  |     | NULL    |                |
+| website   | text | YES  |     | NULL    |                |
+| email     | text | YES  |     | NULL    |                |
+| founded   | int  | YES  |     | NULL    |                |
+| photo_url | text | YES  |     | NULL    |                |
+| name      | text | YES  |     | NULL    |                |
++-----------+------+------+-----+---------+----------------+
+
++----+---------+----------------------------------------------+-----------+-------------------------------+-------------------------+---------+-------------------------------------------------------------------------------------------+-------------+
+| id | comp_id | address                                      | phone     | website                       | email                   | founded | photo_url                                                                                 | name        |
++----+---------+----------------------------------------------+-----------+-------------------------------+-------------------------+---------+-------------------------------------------------------------------------------------------+-------------+
+|  1 |       1 | Guayaybo 1531 Montevideo 11200               | 594004814 | http://www.auf.org.uy         | auf@auf.org.uy          |    1900 | https://upload.wikimedia.org/wikipedia/en/b/ba/Flag_of_Germany.svg                        | Germany     |
+|  2 |       1 | Ramón y Cajal, s/n Las Rozas 28230           |  98765432 | http://www.rfef.es            | rfef@rfef.es            |    1909 | https://upload.wikimedia.org/wikipedia/en/9/9a/Flag_of_Spain.svg                          | Spain       |
+|  3 |       1 | Rua Alexandre Herculano, 58 Lisboa 1250-012  | 983425432 | http://www.fpf.pt             | info@fpf.pt             |    1976 | https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Portugal.svg                  | Portugal    |
+|  4 |       1 | Wembley Stadium, PO Box 1966 London SW1P 9EQ | 235425432 | http://www.thefa.com          | info@thefa.com          |    1863 | https://upload.wikimedia.org/wikipedia/en/b/be/Flag_of_England.svg                        | England     |
+|  5 |       1 | House of Football, DBU Allé 1 Brøndby 2605   |   1245902 | http://www.dbu.dk             | dbu@dbu.dk              |    1889 | https://upload.wikimedia.org/wikipedia/commons/3/38/Flag_of_Denmark_%283-2%29.svg         | Denamrk     |
+|  6 |       2 | Worbstrasse 48 Bern 3000                     |  98765357 | http://www.football.ch        | bu@dbu.dk               |    1906 | https://upload.wikimedia.org/wikipedia/commons/0/08/Flag_of_Switzerland_%28Pantone%29.svg | Switzerland |
+|  7 |       2 | Evenemangsgatan 31 / Box 1216 Solna 17123    | 768765357 | http://www.svenskfotboll.se   | svff@svenskfotboll.se   |    1904 | https://upload.wikimedia.org/wikipedia/en/4/4c/Flag_of_Sweden.svg                         | Sweden      |
+|  8 |       2 | Bitwy Warszawskiej 1920 r., 7 Warszawa 02366 | 675437900 | http://www.pzpn.pl            | pzpn@pzpn.pl            |    1919 | https://upload.wikimedia.org/wikipedia/en/1/12/Flag_of_Poland.svg                         | Poland      |
+|  9 |       2 | Ulica grada Vukovara, 269 A Zagreb 10000     | 346098754 | http://www.hns-cff.hr         | info@hns-cff.hr         |    1912 | https://upload.wikimedia.org/wikipedia/commons/1/1b/Flag_of_Croatia.svg                   | Croatia     |
+| 10 |       2 | 145, avenue Houba de Strooper Brussels 1020  |  36565754 | http://www.belgianfootball.be | urbsfa.kbvb@footbel.com |    1895 | https://upload.wikimedia.org/wikipedia/commons/6/65/Flag_of_Belgium.svg                   | Belgium     |
++----+---------+----------------------------------------------+-----------+-------------------------------+-------------------------+---------+-------------------------------------------------------------------------------------------+-------------+
+10 rows in set (0.00 sec)
