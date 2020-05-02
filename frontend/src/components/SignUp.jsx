@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import axios from "axios"
 import { registerInfo } from "../redux/action"
+
 export class SignUp extends Component {
     constructor(props) {
         super(props);
@@ -13,11 +14,15 @@ export class SignUp extends Component {
             password: ""
         }
     }
+
+    // function to set the state
     handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
         })
     }
+
+    // function to register a user
     handleSubmit = (e) => {
         e.preventDefault()
         let details = this.state
@@ -42,12 +47,13 @@ export class SignUp extends Component {
             })
             .catch(err => console.log(err))
     }
+
     render() {
         return (
             <React.Fragment>
                 <div className="d-flex justify-content-center">
                     <form>
-                        <label><h3>Sign up</h3></label><br></br>
+                        <label className="ml-5"><h3>Sign up</h3></label><br></br>
                         <label>Name</label><br></br>
                         <input type="text" name="name" onChange={this.handleChange}></input><br></br>
                         <label>Email</label><br></br>
@@ -56,7 +62,7 @@ export class SignUp extends Component {
                         <input type="text" name="phone" onChange={this.handleChange}></input><br></br>
                         <label>Password</label><br></br>
                         <input type="password" name="password" onChange={this.handleChange}></input><br></br>
-                        <button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>Sign Up</button>
+                        <button type="submit" className="btn btn-primary ml-5 mt-3" onClick={this.handleSubmit}>Sign Up</button>
                     </form>
                 </div>
             </React.Fragment>
