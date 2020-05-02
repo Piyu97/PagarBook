@@ -5,15 +5,16 @@ import {
     LOADING,
     REGISTER_INFO,
     SIGN,
-    GET_DATA,
     LOGOUT,
+    STORE_COMP,
+    NO_COMP
 } from "./action_types"
 
 
 const registerInfo = (paylaod) => {
     return {
         type: REGISTER_INFO,
-        payload:paylaod
+        payload: paylaod
     }
 }
 
@@ -52,33 +53,51 @@ const signin = (payload) => {
     }
 }
 
-const sign=()=>{
+const sign = () => {
     return {
-        type:SIGN
+        type: SIGN
     }
 }
 
-const getData=()=>{
-    let token=localStorage.getItem("token")
-    // console.log(token)
-    // console.log(token.replace('"',''))
-    return dispatch=>{
+const storeComp = (payload) => {
+    return {
+        type: STORE_COMP,
+        payload
+    }
+}
+
+const noComp = (payload) => {
+    return {
+        type: NO_COMP,
+        payload
+    }
+}
+
+const getData = () => {
+    let token = localStorage.getItem("token")
+    return dispatch => {
         dispatch(loading())
         return axios({
-            method:"GET",
-            url:"http://127.0.0.1:5000/competitions",
+            method: "GET",
+            url: "http://127.0.0.1:5000/competitions",
             headers: { 'Authorization': `Bearer ${token}` }
 
         })
-        .then(res=>console.log(res))
-        .catch(err=>console.log(err))
+            .then(res => {
+                console.log(res)
+                dispatch(storeComp(res.data))
+            })
+            .catch(err => {
+                console.log(err)
+                dispatch(noComp(err))
+            })
     }
 }
 
-const logout=()=>{
-    return{
-        type:LOGOUT
+const logout = () => {
+    return {
+        type: LOGOUT
     }
 }
 
-export { getData,logout, registerInfo,signin,sign, loading, storeData, noData }
+export { getData, logout, storeComp, noComp, registerInfo, signin, sign, loading, storeData, noData }

@@ -4,16 +4,19 @@ import {
     LOADING,
     REGISTER_INFO,
     SIGN,
-    GET_DATA,
-    LOGOUT
+    LOGOUT,
+    STORE_COMP,
+    NO_COMP
 } from "./action_types"
 
 const initialState = {
     loading: true,
+    err: "",
     status: false,
     email: "",
     password: "",
     token: null || localStorage.getItem("token"),
+    competitions: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -25,6 +28,18 @@ const reducer = (state = initialState, action) => {
                 status: true,
                 email: action.payload.email,
                 password: action.payload.password
+            }
+        case STORE_COMP:
+            return {
+                ...state,
+                loading: false,
+                competitions: action.payload
+            }
+        case NO_COMP:
+            return {
+                ...state,
+                loading: false,
+                err: action.payload
             }
 
         case LOADING:

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from "react-router-dom"
 import { getData } from "../redux/action"
+import CreateComp from "./CreateComp"
 
 class Home extends Component {
     constructor(props) {
@@ -28,7 +29,15 @@ class Home extends Component {
                     <React.Fragment>
                         <div className="container-fluid">
                             <div className="row">
-                                
+                                <div className="col-lg-9 col-md-9 col-sm-12">
+                                    <div className="container-fluid">
+                                        <div className="row">
+                                            <CreateComp/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-lg-3 col-md-3 col-sm-12">
+                                </div>
                             </div>
                         </div>
                     </React.Fragment>
