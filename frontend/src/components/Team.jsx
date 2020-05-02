@@ -35,9 +35,7 @@ export class Team extends Component {
                     website: data.website
                 })
             })
-            .catch(err => {
-                console.log(err)
-            })
+            .catch(err =>console.log(err))
     }
     render() {
         let team = this.state
@@ -47,7 +45,7 @@ export class Team extends Component {
 
                 <div className="d-flex justify-content-center">
                     <div>
-                        <img src={team.photo_url} alt="team photo" className="imageSize" />
+                        <img src={team.photo_url} alt="team" className="imageSize" />
                         <h3 className="text-center">{team.name}</h3>
                         <div className="d-flex justify-content-between">
                             <div className="lead">Founded</div>

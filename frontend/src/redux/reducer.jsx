@@ -15,12 +15,10 @@ const initialState = {
     loading: true,
     err: "",
     status: false,
-    email: "",
-    password: "",
     token: null || localStorage.getItem("token"),
     competitions: [],
     teams: [],
-    getTeam:false
+    getTeam: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -30,26 +28,26 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 status: true,
-                email: action.payload.email,
-                password: action.payload.password
-            }
-        case STORE_COMP:
-            return {
-                ...state,
-                loading: false,
-                competitions: action.payload
-            }
-        case NO_COMP:
-            return {
-                ...state,
-                loading: false,
-                err: action.payload
             }
 
         case LOADING:
             return {
                 ...state,
                 loading: true
+            }
+
+        case STORE_COMP:
+            return {
+                ...state,
+                loading: false,
+                competitions: action.payload
+            }
+
+        case NO_COMP:
+            return {
+                ...state,
+                loading: false,
+                err: action.payload
             }
 
         case STORE_DATA:
@@ -65,13 +63,15 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 loading: false,
             }
+
         case STORE_TEAMS:
             return {
                 ...state,
-                loading:false,
+                loading: false,
                 teams: action.payload,
-                getTeam:true
+                getTeam: true
             }
+
         case NO_TEAMS:
             return {
                 ...state,
@@ -83,6 +83,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 status: true
             }
+            
         case LOGOUT:
             localStorage.clear()
             return {

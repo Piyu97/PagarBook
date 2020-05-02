@@ -10,9 +10,9 @@ class CreateComp extends Component {
                 {competitions && competitions.map((item, i) =>
                     <div className="col-lg-4 col-md-6 col-sm-12 mt-5" onClick={() => this.props.teams(item.id)} key={item.id}>
                         <div className="p-3 border border-danger">
-                            <img src={item.image_url} alt="competition image" className="imageSize" />
+                            <img src={item.image_url} alt="competition" className="imageSize" />
                             <h4>{item.name}</h4>
-                            <div class="d-flex justify-content-between">
+                            <div className="d-flex justify-content-between">
                                 <div className="lead">Host -</div>
                                 <div>{item.host}</div>
                             </div>
