@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Redirect } from "react-router-dom"
 import { getData } from "../redux/action"
 import CreateComp from "./CreateComp"
+import CreateTeams from './CreateTeams'
 
 class Home extends Component {
     constructor(props) {
@@ -13,7 +14,8 @@ class Home extends Component {
         this.props.getData()
     }
     render() {
-        let { loading } = this.props
+        let { loading ,teams,getTeam} = this.props
+        console.log(teams)
         var loggedIn = localStorage.getItem("token")
         if (loggedIn) {
             return loading ? (
@@ -37,6 +39,7 @@ class Home extends Component {
                                     </div>
                                 </div>
                                 <div className="col-lg-3 col-md-3 col-sm-12">
+                                    {getTeam?<CreateTeams/>:<div>hello</div>}
                                 </div>
                             </div>
                         </div>
@@ -50,7 +53,10 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    loading: state.loading
+    loading: state.loading,
+    teams:state.teams,
+    getTeam:state.getTeam
+
 })
 
 const mapDispatchToProps = dispatch => {
