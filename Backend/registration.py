@@ -8,7 +8,7 @@ import jwt
 import base64
 import hashlib
 from server import mysql
-auth = Blueprint("auth", __name__,static_url_path='/static')
+auth = Blueprint("auth", __name__,)
 
 
 def generate_salt():
@@ -18,7 +18,6 @@ def generate_salt():
 
 def md5_hash(string, salt):
     new_string = string+salt
-    print(new_string)
     hash = hashlib.md5()
     hash.update(new_string.encode('utf-8'))
     return hash.hexdigest()
@@ -63,28 +62,26 @@ def loggin():
             if result:
                 encoded_data = jwt.encode(
                     {"id": result[0]["id"]}, "masai", algorithm="HS256")
-                print(encoded_data)
                 return {"token": encoded_data.decode().strip('\"')}
             else:
                 return({"message": "Enter Correct password"})
         except Exception as e:
             return jsonify({"message":str(e)})
         finally:
-            cursor.close()           
+            cursor.close()
+    else:
+        return jsonify({"message":"Get right methods to Request"})                   
 
 
 # function to register a user
 @auth.route('/register', methods=['POST'])
 def register():
     if request.method == 'POST':
-        print(check(request.json["email"]))
         if(check(request.json["email"])):
             return {"message":False}   
         else:
             salt = generate_salt()
             password = md5_hash(request.json["password"], salt)
-            print(salt, password)
-            # print(salt.decode('utf-8'))
             cursor = mysql.connection.cursor()
             cursor.execute(
                 """INSERT INTO registration(id,name,email,phone,salt,password)values(NULL,%s,%s,%s,%s,%s)""", (
@@ -93,6 +90,8 @@ def register():
             cursor.connection.commit()
             cursor.close()
             return {"message":True}
+    else:
+        return jsonify({"message":"Get right methods to Request"}) 
 
 
 # function to get logged in user
@@ -100,39 +99,8 @@ def register():
 def loggedPerson(token):
     token = token.split(' ')[1]
     result = jwt.decode(token, "masai", algorithms=['HS256'])
-    print(result["id"], "result")
     if(result):
         return result
     else:
         return False
 
-
-
-
-# function to pass the user id value back to user
-@auth.route('/getId', methods=['POST'])
-def getId():
-    if request.method == 'POST':
-        token = request.json["token"]
-        result = jwt.decode(token, "masai", algorithms=['HS256'])
-        Id = result["id"]
-        print(Id)
-        return jsonify(Id)
-
-
-# # function to get logged in person name
-@auth.route('/getName')
-def name():
-    token = request.headers.get("Authorization")
-    ans = loggedPerson(token)
-    if(ans):
-        cursor = mysql.connection.cursor()
-        cursor.execute(
-            """SELECT name from registration where id=%s""", (ans["id"],)
-        )
-        result = cursor.fetchall()
-        cursor.connection.commit()
-        cursor.close()
-        return jsonify(result)
-    else:
-        return({"message": "Invalid User"})

@@ -5,6 +5,7 @@ import Login from "../components/Login"
 import Home from "../components/Home"
 import Team from "../components/Team"
 import NotFound from "../components/NotFound"
+import Footer from "../components/Footer"
 
 function Routes() {
     return (
@@ -16,6 +17,7 @@ function Routes() {
                 <Route path="/team/:id" render={(props) => <Team {...props} />}></Route>
                 <Route path component={NotFound} />
             </Switch>
+            <Footer/>
         </React.Fragment>
     )
 }
