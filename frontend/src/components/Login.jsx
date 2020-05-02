@@ -6,10 +6,10 @@ import {sign} from "../redux/action"
 import {Redirect} from "react-router-dom"
 
 function Login(props){
-    var loggedIn=localStorage.getItem("token")
+    let token=props.token
     
     // checking if user is already logged in
-    if(loggedIn){
+    if(token){
        return  <Redirect to="/home"/>
     }
         return (
@@ -22,13 +22,8 @@ function Login(props){
 
 
 const mapStateToProps = (state) => ({
-    status:state.status
+    status:state.status,
+    token:state.token
 })
 
-const mapDispatchToProps =dispatch=> {
-    return({
-        sign:()=>dispatch(sign())
-    })
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(mapStateToProps,{sign})(Login)

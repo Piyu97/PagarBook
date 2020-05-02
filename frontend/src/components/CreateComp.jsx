@@ -1,21 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { teams } from "../redux/action"
 
-export class CreateComp extends Component {
-    constructor(props) {
-        super(props);
-
-    }
-
+class CreateComp extends Component {
     render() {
         let { competitions } = this.props
         return (
-            <React.Fragment>
-                {competitions && competitions.map((item, i) => 
-                    <div className="col-lg-4 col-md-6 col-sm-12 mt-5">
+            <>
+                {competitions && competitions.map((item, i) =>
+                    <div className="col-lg-4 col-md-6 col-sm-12 mt-5" onClick={() => this.props.teams(item.id)} key={item.id}>
                         <div className="p-3 border border-danger">
-                            <img src={item.image_url} alt="competition image" className="imageSize"/>
-                            <h3>{item.name}</h3>
+                            <img src={item.image_url} alt="competition image" className="imageSize" />
+                            <h4>{item.name}</h4>
                             <div class="d-flex justify-content-between">
                                 <div className="lead">Host -</div>
                                 <div>{item.host}</div>
@@ -31,7 +27,7 @@ export class CreateComp extends Component {
                         </div>
                     </div>
                 )}
-            </React.Fragment>
+            </>
         )
     }
 }
@@ -42,7 +38,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = dispatch => {
     return ({
-
+        teams: (idx) => dispatch(teams(idx))
     })
 }
 

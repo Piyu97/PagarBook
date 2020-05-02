@@ -6,7 +6,9 @@ import {
     SIGN,
     LOGOUT,
     STORE_COMP,
-    NO_COMP
+    NO_COMP,
+    STORE_TEAMS,
+    NO_TEAMS
 } from "./action_types"
 
 const initialState = {
@@ -16,7 +18,9 @@ const initialState = {
     email: "",
     password: "",
     token: null || localStorage.getItem("token"),
-    competitions: []
+    competitions: [],
+    teams: [],
+    getTeam:false
 }
 
 const reducer = (state = initialState, action) => {
@@ -60,6 +64,18 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
+            }
+        case STORE_TEAMS:
+            return {
+                ...state,
+                loading:false,
+                teams: action.payload,
+                getTeam:true
+            }
+        case NO_TEAMS:
+            return {
+                ...state,
+                err: action.payload
             }
 
         case SIGN:

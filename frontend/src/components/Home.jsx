@@ -6,44 +6,38 @@ import CreateComp from "./CreateComp"
 import CreateTeams from './CreateTeams'
 
 class Home extends Component {
-    constructor(props) {
-        super(props);
-
-    }
     componentDidMount = () => {
         this.props.getData()
     }
     render() {
-        let { loading ,teams,getTeam} = this.props
-        console.log(teams)
-        var loggedIn = localStorage.getItem("token")
-        if (loggedIn) {
+        let { loading, getTeam, token } = this.props
+        if (token) {
             return loading ? (
-                <React.Fragment >
+                <>
                     <div className="d-flex justify-content-center mt-5">
                         <div className="spinner-border" role="status">
                             <span className="sr-only">Loading...</span>
                         </div>
                     </div>
-                </React.Fragment >
+                </>
             ) :
                 (
-                    <React.Fragment>
+                    <>
                         <div className="container-fluid">
                             <div className="row">
                                 <div className="col-lg-9 col-md-9 col-sm-12">
                                     <div className="container-fluid">
                                         <div className="row">
-                                            <CreateComp/>
+                                            <CreateComp />
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-lg-3 col-md-3 col-sm-12">
-                                    {getTeam?<CreateTeams/>:<div>hello</div>}
+                                    {getTeam ? <CreateTeams /> : <div></div>}
                                 </div>
                             </div>
                         </div>
-                    </React.Fragment>
+                    </>
                 )
         }
         return (
@@ -54,18 +48,12 @@ class Home extends Component {
 
 const mapStateToProps = (state) => ({
     loading: state.loading,
-    teams:state.teams,
-    getTeam:state.getTeam
-
+    teams: state.teams,
+    getTeam: state.getTeam,
+    token: state.token
 })
 
-const mapDispatchToProps = dispatch => {
-    return ({
-        getData: () => dispatch(getData())
-    })
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default connect(mapStateToProps, { getData })(Home)
 
 
 

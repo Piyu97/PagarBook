@@ -22,7 +22,7 @@ export class SignIn extends Component {
     }
     render() {
         return (
-            <React.Fragment>
+            <>
                 <div className="d-flex justify-content-center">
                 <form>
                     <label className="lead ml-5"><h3>Sign in</h3></label><br></br>
@@ -33,14 +33,10 @@ export class SignIn extends Component {
                     <button className="btn btn-success ml-5 mt-3" type="submit" onClick={this.handleSubmit}>Submit</button>
                 </form>
                 </div>
-            </React.Fragment>
+            </>
         )
     }
 }
-
-const mapStateToProps = (state) => ({
-
-})
 
 const mapDispatchToProps = dispatch => {
     return ({
@@ -48,4 +44,4 @@ const mapDispatchToProps = dispatch => {
     })
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn)
+export default connect(null, mapDispatchToProps)(SignIn)

@@ -7,7 +7,9 @@ import {
     SIGN,
     LOGOUT,
     STORE_COMP,
-    NO_COMP
+    NO_COMP,
+    STORE_TEAMS,
+    NO_TEAMS
 } from "./action_types"
 
 
@@ -35,6 +37,22 @@ const storeData = (payload) => {
 const noData = () => {
     return {
         type: NO_DATA,
+    }
+}
+
+
+const storeTeams = (payload) => {
+    console.log(payload)
+    return {
+        type: STORE_TEAMS,
+        payload: payload
+    }
+
+}
+const noTeams = (payload) => {
+    return {
+        type: NO_TEAMS,
+        payload
     }
 }
 
@@ -100,4 +118,25 @@ const logout = () => {
     }
 }
 
-export { getData, logout, storeComp, noComp, registerInfo, signin, sign, loading, storeData, noData }
+const teams = (idx) => {
+    let token = localStorage.getItem("token")
+    return async dispatch => {
+        dispatch(loading())
+        return await axios({
+            method: "GET",
+            url: `http://127.0.0.1:5000/teams/${idx}`,
+            headers: { 'Authorization': `Bearer ${token}` }
+
+        })
+            .then(res => {
+                console.log(res)
+                dispatch(storeTeams(res.data))
+            })
+            .catch(err => {
+                console.log(err)
+                dispatch(noTeams(err))
+            })
+    }
+}
+
+export { getData,storeTeams,teams,noTeams, logout, storeComp, noComp, registerInfo, signin, sign, loading, storeData, noData }
