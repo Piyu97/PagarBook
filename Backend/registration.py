@@ -13,7 +13,7 @@ auth = Blueprint("auth", __name__,)
 
 def generate_salt():
     salt = os.urandom(16)
-    return str(base64.b64encode(salt).decode())
+    return str(base64.b64encode(salt))
 
 
 def md5_hash(string, salt):
