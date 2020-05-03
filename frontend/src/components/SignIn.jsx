@@ -28,7 +28,7 @@ class SignIn extends Component {
         return (
             <>
                 <div className="d-flex justify-content-center">
-                    <form className="my-3 border border-dark p-5">
+                    <form className="my-3 border border-dark p-5 shadow-lg p-1 mb-5 bg-white rounded border border-warning">
                         <label className="lead ml-5 text-danger"><h3>Sign in</h3></label><br></br>
                         <label>Email</label><br></br>
                         <input type="text" name="email" onChange={this.handleChange} placeholder="Enter Email"></input><br></br>

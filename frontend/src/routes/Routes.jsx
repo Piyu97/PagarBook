@@ -1,5 +1,5 @@
 import React from "react"
-import { Switch, Route } from "react-router-dom"
+import { Switch, Route,Redirect } from "react-router-dom"
 import NavBar from "../components/NavBar"
 import Login from "../components/Login"
 import Home from "../components/Home"
@@ -12,9 +12,9 @@ function Routes() {
         <React.Fragment>
             <NavBar />
             <Switch>
-                <Route path="/login" render={(props) => <Login {...props} />}></Route>
-                <Route path="/home" render={(props) => <Home {...props} />}></Route>
-                <Route path="/team/:id" render={(props) => <Team {...props} />}></Route>
+                <Route path="/" exact render={(props) => <Login {...props} />}></Route>
+                <Route  path="/home" render={(props) => <Home {...props} />}></Route>
+                <Route  path="/team/:id" render={(props) => <Team {...props} />}></Route>
                 <Route path component={NotFound} />
             </Switch>
             <Footer/>

@@ -52,7 +52,7 @@ class SignUp extends Component {
         return (
             <>
                 <div className="d-flex justify-content-center">
-                    <form className="my-3 border border-dark p-5"> 
+                    <form className="my-3 border border-dark p-5   shadow-lg p-1 mb-5 bg-white rounded border border-warning"> 
                         <label className="ml-5 text-danger"><h3>Sign up</h3></label><br></br>
                         <label>Name</label><br></br>
                         <input type="text" name="name" onChange={this.handleChange} placeholder="Enter Name"></input><br></br>
